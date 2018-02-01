@@ -1,0 +1,8 @@
+<h1>Invoices</h1>
+<div class="list-group" *ngFor="let row of invoicesArray">
+    <a href="#" class="list-group-item">
+        <h4 class="list-group-item-heading">
+            <a href="/user/details/{{row.id}}">{{row.id}} {{row.username}}</a>
+        </h4>  
+    </a>
+</div>
