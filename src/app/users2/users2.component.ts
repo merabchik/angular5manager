@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Users2Service } from './users2.service';
 import { Http, Response } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,6 @@ export class Users2Component implements OnInit {
   }
 
   ngOnInit() {
-    // this.serviceT.getList().subscribe(response => this.Users2List = response.json());
+     this.serviceT.getList().subscribe(response => this.Users2List = response.json());
   }
 }

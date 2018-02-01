@@ -14,20 +14,12 @@ const appRoutes: Routes = [
             {
                 path: 'apps',
                 component: ApplicationsComponent,
-                data: { preload: true },
-                children: [
-                    {
-                        path: '',
-                        pathMatch: 'full',
-                        component: Users2Component
-                    }
-                ]
+                data: { preload: true }
             },
             {
                 path: 'users2',
                 component: Users2Component,
-                data: { preload: true },
-                outlet: 'aux'
+                data: { preload: true }
             },
             {
                 path: 'orders',
@@ -49,7 +41,7 @@ const appRoutes: Routes = [
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes,
     {
-        useHash: false,
+        useHash: true,
         enableTracing: true,
         initialNavigation: true,
         preloadingStrategy: PreloadAllModules

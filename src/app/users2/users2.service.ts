@@ -13,7 +13,7 @@ export class Users2Service {
     }
 
     public getList() {
-        return this._http.get('http://azomva.com/rest/apps/get/');
+        return this._http.get('http://azomva.com/rest/users/get');
     }
 
     public getApp(id) {

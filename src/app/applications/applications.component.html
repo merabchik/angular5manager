@@ -2,7 +2,8 @@
 <div class="list-group" *ngFor="let row of AppsList">
     <a href="#" class="list-group-item">
         <h4 class="list-group-item-heading">
-            <a href="#/user/details/{{row.id}}">{{row.username}}</a>
+            <a href="#/user/details/{{row.id}}">{{row.location_name}} {{row.location_address}}</a>
+            <span style="color: #green">{{row.status_name}}</span>
         </h4>
     </a>
 </div>
