@@ -1,25 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { Users2Service } from './users2.service';
-import { Http, Response } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
-import {Router, ActivatedRoute} from '@angular/router';
+import { Http, Response, RequestMethod } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import {
+  HttpClientModule,
+  HttpClient,
+  HttpHeaders,
+  HttpRequest
+} from '@angular/common/http';
+import { HttpParams } from '@angular/common/http/src/params';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-root',
   templateUrl: './users2.component.html',
-  styleUrls: ['./users2.component.scss'],
-  providers: [Users2Service]
+  styleUrls: ['./users2.component.scss']
 })
 
 export class Users2Component implements OnInit {
+  route: any;
+  global: Globals;
+  data;
+  loading: boolean;
 
-  Users2List;
-  serviceT: Users2Service;
-  constructor(public data: Users2Service) {
-    this.serviceT = data;
+  constructor(private http: Http, global: Globals) {
+    this.global = global;
+  }
+
+  getUsers(): void {
+    this.loading = true;
+    this.http
+      .get(this.global.apiRoot + '/users/get')
+      .subscribe(data => {
+        this.data = data.json();
+        this.loading = false;
+      });
   }
 
   ngOnInit() {
-     this.serviceT.getList().subscribe(response => this.Users2List = response.json());
+    this.getUsers();
   }
 }

@@ -6,12 +6,45 @@ import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ApplicationsComponent } from './applications/applications.component';
-import { routing } from './app.routing';
 import { Users2Component } from './users2/users2.component';
 import { OrdersComponent } from './orders/orders';
 import { InvoicesComponent } from './invoices/invoices';
 import { CustomPreloading } from './custom-preloading';
 import { PageNotFoundComponentComponent } from './errorpages/PageNotFoundComponent.component';
+import { Globals } from './globals';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+
+const appRoutes: Routes = [
+  {
+    path: '',
+    redirectTo: 'apps',
+    pathMatch: 'full'
+  },
+  {
+    path: 'apps',
+    component: ApplicationsComponent,
+    data: { preload: true }
+  },
+  {
+    path: 'users2',
+    component: Users2Component
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent,
+    data: { preload: true }
+  },
+  {
+    path: 'invoices',
+    component: InvoicesComponent,
+    data: { preload: true }
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponentComponent
+  }
+];
 
 
 @NgModule({
@@ -27,9 +60,14 @@ import { PageNotFoundComponentComponent } from './errorpages/PageNotFoundCompone
     HttpModule,
     // HttpClientModule,
     BrowserAnimationsModule,
-    routing
+    RouterModule.forRoot(appRoutes,
+      {
+        useHash: true
+      })
   ],
-  providers: [], // CustomPreloading
-  bootstrap: [Users2Component]
+  providers: [Globals], // CustomPreloading
+  bootstrap: [ApplicationsComponent]
 })
 export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule);

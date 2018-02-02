@@ -1,25 +1,32 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RouterModule, Routes, ActivatedRoute } from '@angular/router';
-import { InvoicesService } from './invoices.service';
+import { RouterModule, Routes, ActivatedRoute, Router } from '@angular/router';
+import { Http } from '@angular/http';
+import { Globals } from '../globals';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './invoices.html',
-    providers: [InvoicesService]
+    templateUrl: './invoices.html'
 })
 // tslint:disable-next-line:component-class-suffix
 export class InvoicesComponent implements OnInit {
-
-    dataList: InvoicesService;
+    global: any;
+    loading: boolean;
     invoicesArray;
-    constructor(public data: InvoicesService) {
-        this.dataList = data;
+    invoicesList: any;
+    constructor(public http: Http, router: Router, global: Globals) {
+        router.navigate(['apps']);
     }
     ngOnInit(): void {
-        this.getList();
+        this.getInvoicesList();
     }
-    public getList() {
-        this.dataList.getList()
-        .subscribe(response => this.invoicesArray = response.json());
-    }
+
+    getInvoicesList(): void {
+        this.loading = true;
+        this.http
+          .get(this.global.apiRoot + '/users/get')
+          .subscribe(data => {
+            this.invoicesList = data.json();
+            this.loading = false;
+          });
+      }
 }
