@@ -13,6 +13,7 @@ import { CustomPreloading } from './custom-preloading';
 import { PageNotFoundComponentComponent } from './errorpages/PageNotFoundComponent.component';
 import { Globals } from './globals';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppComponent } from './app.component';
 
 
 const appRoutes: Routes = [
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
+    AppComponent,
     ApplicationsComponent,
     Users2Component,
     OrdersComponent,
@@ -66,7 +68,7 @@ const appRoutes: Routes = [
       })
   ],
   providers: [Globals], // CustomPreloading
-  bootstrap: [ApplicationsComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 

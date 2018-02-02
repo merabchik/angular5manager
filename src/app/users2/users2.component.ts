@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, RequestMethod } from '@angular/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import {
-  HttpClientModule,
-  HttpClient,
-  HttpHeaders,
-  HttpRequest
-} from '@angular/common/http';
 import { HttpParams } from '@angular/common/http/src/params';
 import { Globals } from '../globals';
 
