@@ -1,0 +1,129 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group" role="group">
+            <button class="btn btn-normal" (click)="goBack()">
+                <i class="fa fa-angle-double-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;განცხადებების სიაში დაბრუნება</button>
+        </div>
+    </div>
+</div>
+<hr />
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group" role="group">
+            <button class="btn btn-normal" (click)="goBack()">
+                <i class="fa fa-angle-double-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;განცხადებების სიაში დაბრუნება</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-home"></i> უძრავი ქონების რეკვიზიტები
+            </div>
+            <div class="card-body">
+                <a class="list-group-item list-group-item-action" *ngFor="let row of vAppPropertyRequisites">
+                    ქონების ტიპი: {{row.app_property_type_name}}
+                    <br /> მდებარეობა: {{row.location_address}}
+                    <br /> საკადასტრო კოდი: {{row.cadcode}}
+                    <br /> ფართობი: {{row.area}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-server" aria-hidden="true"></i> მომსახურების ტიპები
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" *ngFor="let row of vAppServiceTypes">
+                        {{row.list_service_type_name}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-money" aria-hidden="true"></i> შეთავაზებები ამზომველებისგან
+            </div>
+            <div class="card-body">
+                <a class="list-group-item list-group-item-action" *ngFor="let row of vBids">
+                    ამზომველი: {{row.user}}
+                    <br /> შეთავაზებული ფასი: {{row.offered_price}}
+                    <br />
+                    <i>{{row.offer_description}}</i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                მომსახურების ტიპები
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" *ngFor="let row of vAppServiceTypes">
+                        {{row.list_service_type_name}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Project details -->
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">To-Do</th>
+            <th class="text-center">area</th>
+            <th class="text-center">create_date</th>
+            <th class="text-center">cadcode</th>
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let app of App">
+            <td>{{ App.area }}</td>
+            <td>{{ App.create_date | date: 'EE, MMM dd' }}</td>
+            <td>{{ App.cadcode }}</td>
+            <td class="text-center">
+                <input type="checkbox" [checked]="App.done" [disabled]="true">
+            </td>
+            <td class="text-center">
+                <button class="btn btn-info" (click)="showEditForm(App)">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </button>
+                <button class="btn btn-danger" (click)="removeApp(App)">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<button class="btn btn-success" (click)="showNewForm()">
+    <i class="glyphicon glyphicon-plus"></i>
+</button>
+<form [formGroup]="formGroup" (ngSubmit)="saveApp(formGroup.value)">
+    <p>To-Do
+        <input type="text" name="area" formControlName="area" />
+    </p>
+    <p>Due
+        <input type="date" name="cadcode" formControlName="cadcode" />
+    </p>
+    <p>
+        <input type="submit" class="btn btn-primary" value="Save">
+        <input type="button" class="btn btn-warning" value="Cancel" (click)="cancelEditApp()">
+    </p>
+</form>

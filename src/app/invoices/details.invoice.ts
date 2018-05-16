@@ -6,22 +6,31 @@ import { InvoicesModel } from './invoices.model';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './invoices.html'
+    templateUrl: './details.html'
 })
 
-export class InvoicesComponent implements OnInit {
+// tslint:disable-next-line:component-class-suffix
+export class DetailsInvoice implements OnInit {
+    route: ActivatedRoute;
+    id: Number;
     global: any;
     loading: boolean;
     invoicesList: InvoicesModel;
-    constructor(public http: Http, router: Router, global: Globals) {
+    constructor(public http: Http, router: Router, route: ActivatedRoute, global: Globals) {
         this.global = global;
+        this.route = route;
         // router.navigate(['apps']);
     }
 
-    getInvoicesList(): void {
+    ngOnInit(): void {
+        this.route.params.subscribe(params => this.getDetails(params.id));
+    }
+
+    getDetails(id: Number): void {
+        this.id = id;
         this.loading = true;
         this.http
-            .get(this.global.apiRoot + '/invoices')
+            .get(this.global.apiRoot + '/invoices/details/' + this.id)
             .subscribe(data => {
                 this.invoicesList = data.json();
                 console.log(this.invoicesList);
@@ -29,7 +38,7 @@ export class InvoicesComponent implements OnInit {
             });
     }
 
-    ngOnInit(): void {
-        this.getInvoicesList();
+    goBack(): void {
+        window.history.back();
     }
 }

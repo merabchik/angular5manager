@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Spinkit } from 'ng-http-loader/spinkits';
 
 @Component({
   selector: 'app-root',
-  template: '<router-outlet></router-outlet>'
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   title = 'Azomva.coM';
+  public spinkit = Spinkit;
 }
 
 

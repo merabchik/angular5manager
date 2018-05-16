@@ -1,13 +1,14 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { AppsService } from './applications.service';
+import { Http } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Globals } from '../globals';
 
 @Component({
   selector: 'app-root',
   templateUrl: './applications.component.html',
   styleUrls: ['./applications.component.css'],
-  providers: [AppsService],
   animations: [
     trigger('slideInOut', [
       state('in', style({
@@ -22,15 +23,32 @@ import { AppsService } from './applications.service';
   ]
 })
 export class ApplicationsComponent {
+  route: ActivatedRoute;
+  global: Globals;
+  loading: boolean;
   title = 'Azomvacomng';
   AppsList;
-  AppsListT: AppsService;
-  constructor(public data: AppsService) {
-    this.AppsListT = data;
+  constructor(private http: Http, router: Router, route: ActivatedRoute, global: Globals) {
+    this.route = route;
+    this.global = global;
   }
   // tslint:disable-next-line:use-life-cycle-interface
   ngOnInit(): void {
-    this.AppsListT.getList()
-      .subscribe(response => this.AppsList = response.json());
+    this.getApps();
+  }
+
+  getApps(): void {
+    this.loading = true;
+    this.http
+        .get(this.global.apiRoot + '/apps/get/')
+        .subscribe(data => {
+            this.AppsList = data.json();
+            this.loading = false;
+        });
+  }
+
+  onEditClick(id): void {
+    alert(id);
+    // EditAppComponent
   }
 }
