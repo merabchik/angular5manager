@@ -1,7 +1,7 @@
-import { AuthGuardService } from "./auth-guard.service";
-import { TestBed } from "@angular/core/testing";
+import { AuthGuardService } from './auth-guard.service';
+import { TestBed } from '@angular/core/testing';
 
-describe("AuthGuardService", () => {
+describe('AuthGuardService', () => {
 
   let service: AuthGuardService;
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe("AuthGuardService", () => {
 
   });
 
-  it("should be able to create service instance", () => {
+  it('should be able to create service instance', () => {
     expect(service).toBeDefined();
   });
 

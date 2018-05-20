@@ -1,7 +1,7 @@
-import { RoleGuardService } from "./role-guard.service";
-import { TestBed } from "@angular/core/testing";
+import { RoleGuardService } from './role-guard.service';
+import { TestBed } from '@angular/core/testing';
 
-describe("RoleGuardService", () => {
+describe('RoleGuardService', () => {
 
   let service: RoleGuardService;
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe("RoleGuardService", () => {
 
   });
 
-  it("should be able to create service instance", () => {
+  it('should be able to create service instance', () => {
     expect(service).toBeDefined();
   });
 

@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   router: any;
   global: Globals;
   loading: boolean;
+  v_email: any;
   public textMessage = {
     'alert-success': this.validateForm(),
     'alert-danger': !this.validateForm()
@@ -29,8 +30,12 @@ export class LoginComponent implements OnInit {
     return true;
   }
 
-  onSubmitClick(): void {
-    // console.log($pemail.value);
+  keyupEmail(event): void {
+    this.v_email = event.value;
+  }
+
+  onSubmitClick(event): void {
+    console.log(this.v_email);
     this.loading = true;
     /*const httpOptions = {
       headers: new Headers({

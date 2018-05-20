@@ -24,7 +24,7 @@ export class InvoicesComponent implements OnInit {
             .get(this.global.apiRoot + '/invoices')
             .subscribe(data => {
                 this.invoicesList = data.json();
-                console.log(this.invoicesList);
+                // console.log(this.invoicesList);
                 this.loading = false;
             });
     }

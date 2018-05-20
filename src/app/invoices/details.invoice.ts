@@ -30,10 +30,10 @@ export class DetailsInvoice implements OnInit {
         this.id = id;
         this.loading = true;
         this.http
-            .get(this.global.apiRoot + '/invoices/details/' + this.id)
+            .get(this.global.apiRoot + '/invoices/details/id/' + this.id)
             .subscribe(data => {
                 this.invoicesList = data.json();
-                console.log(this.invoicesList);
+                // console.log(this.invoicesList);
                 this.loading = false;
             });
     }

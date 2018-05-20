@@ -17,9 +17,8 @@ import { DetailsInvoice } from './invoices/details.invoice';
 import { ContractsComponent } from './contracts/contracts.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  AuthGuardService as AuthGuard
-} from './auth/auth-guard.service';
+import { AuthGuardService } from './auth/auth-guard.service';
+import { ContractDetailsComponent } from './contracts/details/contract.details.component';
 
 
 const appRoutes: Routes = [
@@ -37,36 +36,62 @@ const appRoutes: Routes = [
     component: ApplicationsComponent,
     data: { preload: true },
     canActivate: [
-      AuthGuard
+      AuthGuardService
     ]
     /*children: [{
       path: 'editapp/:id', component: EditAppComponent
     }]*/
   },
   {
-    path: 'editapp/:id', component: EditAppComponent
+    path: 'editapp/:id', component: EditAppComponent,
+    canActivate: [
+      AuthGuardService
+    ]
   },
   {
     path: 'users2',
     component: Users2Component,
     data: { preload: true },
     canActivate: [
-      AuthGuard
+      AuthGuardService
     ]
   },
   {
     path: 'orders',
     component: OrdersComponent,
-    data: { preload: true }
+    data: { preload: true },
+    canActivate: [
+      AuthGuardService
+    ]
   },
   {
     path: 'invoices',
     component: InvoicesComponent,
-    data: { preload: true }
+    data: { preload: true },
+    canActivate: [
+      AuthGuardService
+    ]
   },
   {
     path: 'invoices/details/:id',
-    component: DetailsInvoice
+    component: DetailsInvoice,
+    canActivate: [
+      AuthGuardService
+    ]
+  },
+  {
+    path: 'contracts',
+    component: ContractsComponent,
+    canActivate: [
+      AuthGuardService
+    ]
+  },
+  {
+    path: 'contracts/details/:id',
+    component: ContractDetailsComponent,
+    canActivate: [
+      AuthGuardService
+    ]
   },
   {
     path: '**',
@@ -88,6 +113,7 @@ const appRoutes: Routes = [
     EditAppComponent,
     PageNotFoundComponentComponent,
     ContractsComponent,
+    ContractDetailsComponent,
     LoginComponent
   ],
   imports: [
@@ -102,7 +128,7 @@ const appRoutes: Routes = [
         useHash: true
       })
   ],
-  providers: [Globals, AuthGuard],
+  providers: [Globals, AuthGuardService],
   bootstrap: [AppComponent, HeaderComponent, SidebarComponent]
 })
 export class AppModule { }

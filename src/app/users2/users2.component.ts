@@ -7,7 +7,7 @@ import { Globals } from '../globals';
 @Component({
   selector: 'app-root',
   templateUrl: './users2.component.html',
-  styleUrls: ['./users2.component.scss']
+  styleUrls: ['./users2.component.css']
 })
 
 export class Users2Component implements OnInit {
