@@ -1,8 +1,10 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component, OnInit, ElementRef, Input } from '@angular/core';
+import { Http, RequestOptionsArgs } from '@angular/http';
 import { Globals } from '../globals';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ViewChild } from '@angular/core/src/metadata/di';
+import { FormControl, FormGroup, Validators, RequiredValidator } from '@angular/forms';
+import { Button } from 'protractor';
 
 @Component({
   selector: 'app-login',
@@ -10,20 +12,22 @@ import { ViewChild } from '@angular/core/src/metadata/di';
   styleUrls: ['./login.component.css']
 })
 
-
 export class LoginComponent implements OnInit {
-  router: any;
-  global: Globals;
   loading: boolean;
   v_email: any;
+  v_password: any;
   public textMessage = {
     'alert-success': this.validateForm(),
     'alert-danger': !this.validateForm()
   };
 
-  constructor(public http: Http, global: Globals, router: Router) { this.global = global; }
+  constructor(public http: Http, private global: Globals, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    /* this.loginFormGroup = new FormGroup({
+       email: new FormControl('', [Validators.required, Validators.minLength(8)]),
+       password: new FormControl('', [Validators.required, Validators.minLength(8)])
+     });*/
   }
 
   validateForm(): boolean {
@@ -31,29 +35,38 @@ export class LoginComponent implements OnInit {
   }
 
   keyupEmail(event): void {
-    this.v_email = event.value;
+    this.v_email = event.path[0].value;
+  }
+
+  keyupPassword(event): void {
+    this.v_password = event.path[0].value;
   }
 
   onSubmitClick(event): void {
-    console.log(this.v_email);
     this.loading = true;
-    /*const httpOptions = {
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': 'my-auth-token'
-      })
-    };*/
+    const fd = new FormData();
+    fd.append('email', this.v_email);
+    fd.append('password', this.v_password);
+    const v_response = this.global.post('/user/signin/op/login', fd);
+    console.log(v_response);
+    if (v_response.loginstatus === 1) {
+      localStorage.setItem('token', v_response.sesskey);
+      this.activatedRoute.queryParams.subscribe((params: Params) => {
+        this.router.navigate(['/' + params.returnUrl]);
+      });
+    } else {
 
-    /*this.http
-      .post(this.global.apiRoot + '/user/signin/op/login',
-      {
-        email: pemail.value,
-        password: ppassword.value
-      })
+    }
+    /*
+    this.http
+      .post(this.global.apiRoot + '/user/signin/op/login', fd)
       .subscribe(data => {
-        if (data.json().status === true) {
-          localStorage.setItem('sesskey', data.json().sesskey);
-          this.router.navigate(['#/']);
+        if (data.json().loginstatus === 1) {
+          localStorage.setItem('token', data.json().sesskey);
+
+          this.activatedRoute.queryParams.subscribe((params: Params) => {
+            this.router.navigate(['/' + params.returnUrl]);
+          });
         } else {
 
         }
@@ -61,4 +74,11 @@ export class LoginComponent implements OnInit {
       });*/
   }
 
+}
+
+export interface UserLogin {
+  email: String;
+  password: String;
+  op: String;
+  remember: Number;
 }

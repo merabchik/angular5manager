@@ -99,7 +99,7 @@
             <td>{{ App.create_date | date: 'EE, MMM dd' }}</td>
             <td>{{ App.cadcode }}</td>
             <td class="text-center">
-                <input type="checkbox" [checked]="App.done" [disabled]="true">
+                <input type="checkbox" [checked]="App.cadcode" [disabled]="true">
             </td>
             <td class="text-center">
                 <button class="btn btn-info" (click)="showEditForm(App)">

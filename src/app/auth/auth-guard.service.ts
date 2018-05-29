@@ -15,7 +15,7 @@ export interface UserResponseInt {
     email: String;
     regipaddr: String;
     sesskey: String;
-    loginstatus: Boolean;
+    loginstatus: Number;
     isSetLocations: Boolean;
 }
 
@@ -39,10 +39,8 @@ export class AuthGuardService implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        // console.log(this.global.token);
-        console.log('token: ' + localStorage.getItem('token'));
         if (localStorage.getItem('token') === '' || localStorage.getItem('token') === null) {
-            this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+            this.router.navigate(['/login'], { queryParams: { returnUrl: state.url.replace('/', '') } });
             return false;
         } else {
             return true;
@@ -51,9 +49,6 @@ export class AuthGuardService implements CanActivate {
 
     public isAuthenticated(): boolean {
         const token = localStorage.getItem('token');
-        // Check whether the token is expired and return
-        // true or false
-        console.log(this.global.UserJson);
         return !this.jwtHelper.isTokenExpired(token);
     }
 }

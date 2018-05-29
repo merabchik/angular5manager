@@ -12,11 +12,13 @@
 		</div>
 		<!-- /.logo -->
 		<div class="controls">
-			<form>
-				<input type="text" #pemail (keyup)="keyupEmail($event)" placeholder="E-mail" class="form-control" />
-				<p style="color: #FFF">Value: {{ pemail.value }}</p>
-				<input type="password" #ppassword (keyup)="0" placeholder="******" class="form-control" />
-				<button type="button" class="btn btn-default btn-block btn-custom" (click)="onSubmitClick($event)">Login</button>
+			<form (ngSubmit)="onSubmitClick($event)" method="post">
+				<input type="text" id="email" #email (keyup)="keyupEmail($event)" placeholder="E-mail" class="form-control"
+				 required />
+				<p style="color: #FFF">Value: {{ email.value }}</p>
+				<input type="password" #ppassword (keyup)="keyupPassword($event)" required placeholder="******"
+				 class="form-control" />
+				<button type="submit" class="btn btn-default btn-block btn-custom">Login</button>
 			</form>
 		</div>
 		<!-- /.controls -->
