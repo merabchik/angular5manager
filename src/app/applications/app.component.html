@@ -1,22 +1,19 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="btn-group" role="group">
             <button class="btn btn-normal" (click)="goBack()">
                 <i class="fa fa-angle-double-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;განცხადებების სიაში დაბრუნება</button>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="btn-group" role="group">
+            <button class="btn btn-primary" (click)="goBack()">
+                <i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp;&nbsp;ცვლილებების დამახსოვრება</button>
         </div>
     </div>
 </div>
 <hr />
 <br />
-<div class="row">
-    <div class="col-md-12">
-        <div class="btn-group" role="group">
-            <button class="btn btn-normal" (click)="goBack()">
-                <i class="fa fa-angle-double-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;განცხადებების სიაში დაბრუნება</button>
-        </div>
-    </div>
-</div>
-
 <div class="row">
     <div class="col-lg-6">
         <div class="card">
@@ -38,13 +35,7 @@
             <div class="card-header">
                 <i class="fa fa-server" aria-hidden="true"></i> მომსახურების ტიპები
             </div>
-            <div class="card-body">
-                <div class="list-group">
-                    <a class="list-group-item list-group-item-action" *ngFor="let row of vAppServiceTypes">
-                        {{row.list_service_type_name}}
-                    </a>
-                </div>
-            </div>
+           
         </div>
     </div>
 </div>
@@ -58,8 +49,8 @@
             </div>
             <div class="card-body">
                 <a class="list-group-item list-group-item-action" *ngFor="let row of vBids">
-                    ამზომველი: {{row.user}}
-                    <br /> შეთავაზებული ფასი: {{row.offered_price}}
+                    ამზომველი: <span style="color:green">{{row.user}}</span> <img src="assets/stars/{{row.user_rating}}.png" style="position: absolute;right: 0px;" />
+                    <br /> შეთავაზებული ფასი: <span style="color:red">{{row.offered_price}}</span>
                     <br />
                     <i>{{row.offer_description}}</i>
                 </a>
@@ -69,13 +60,11 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-header">
-                მომსახურების ტიპები
+                შეთაავზებები ამზომველისგან
             </div>
             <div class="card-body">
                 <div class="list-group">
-                    <a class="list-group-item list-group-item-action" *ngFor="let row of vAppServiceTypes">
-                        {{row.list_service_type_name}}
-                    </a>
+                   
                 </div>
             </div>
         </div>
@@ -89,17 +78,17 @@
             <th class="text-center">To-Do</th>
             <th class="text-center">area</th>
             <th class="text-center">create_date</th>
-            <th class="text-center">cadcode</th>
+            <th class="text-center">offer_description</th>
             <th class="text-center"></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let app of App">
-            <td>{{ App.area }}</td>
+        <tr *ngFor="let row of vBids">
+            <td>{{ App.id }}</td>
             <td>{{ App.create_date | date: 'EE, MMM dd' }}</td>
-            <td>{{ App.cadcode }}</td>
+            <td>{{row.offer_description}}</td>
             <td class="text-center">
-                <input type="checkbox" [checked]="App.cadcode" [disabled]="true">
+                <input type="checkbox" [checked]="App.location_name" [disabled]="true">
             </td>
             <td class="text-center">
                 <button class="btn btn-info" (click)="showEditForm(App)">

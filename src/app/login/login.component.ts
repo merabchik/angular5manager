@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     'alert-success': this.validateForm(),
     'alert-danger': !this.validateForm()
   };
+  UserLogin: any;
 
   constructor(public http: Http, private global: Globals, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -47,31 +48,51 @@ export class LoginComponent implements OnInit {
     const fd = new FormData();
     fd.append('email', this.v_email);
     fd.append('password', this.v_password);
-    const v_response = this.global.post('/user/signin/op/login', fd);
-    console.log(v_response);
-    if (v_response.loginstatus === 1) {
-      localStorage.setItem('token', v_response.sesskey);
-      this.activatedRoute.queryParams.subscribe((params: Params) => {
-        this.router.navigate(['/' + params.returnUrl]);
-      });
-    } else {
+    this.global.MyPost('/user/signin/op/login', fd).subscribe((data) => {
+      this.UserLogin = data.json();
+      if (this.UserLogin.loginstatus === 1) {
+        localStorage.setItem('token', this.UserLogin.sesskey);
+        localStorage.setItem('user_id', this.UserLogin.id);
+        this.global.token = this.UserLogin.sesskey;
+        this.global.user_id = this.UserLogin.id;
+        this.activatedRoute.queryParams.subscribe((params: Params) => {
+          this.router.navigate(['/' + params.returnUrl]);
+        });
+      } else {
 
-    }
+      }
+    });
     /*
-    this.http
-      .post(this.global.apiRoot + '/user/signin/op/login', fd)
-      .subscribe(data => {
-        if (data.json().loginstatus === 1) {
-          localStorage.setItem('token', data.json().sesskey);
+       subscribe(
+         data => {
+           console.log(data);
+           if (data.loginstatus === 1) {
+             localStorage.setItem('token', data.sesskey);
+             this.activatedRoute.queryParams.subscribe((params: Params) => {
+               this.router.navigate(['/' + params.returnUrl]);
+             });
+           } else {
 
-          this.activatedRoute.queryParams.subscribe((params: Params) => {
-            this.router.navigate(['/' + params.returnUrl]);
-          });
-        } else {
+           }
+         },
+         error => console.log(error)
+       );*/
 
-        }
-        this.loading = false;
-      });*/
+
+    /* this.http
+       .post(this.global.apiRoot + '/user/signin/op/login', fd)
+       .subscribe(data => {
+         if (data.json().loginstatus === 1) {
+           localStorage.setItem('token', data.json().sesskey);
+
+           this.activatedRoute.queryParams.subscribe((params: Params) => {
+             this.router.navigate(['/' + params.returnUrl]);
+           });
+         } else {
+
+         }
+         this.loading = false;
+       });*/
   }
 
 }
@@ -79,6 +100,7 @@ export class LoginComponent implements OnInit {
 export interface UserLogin {
   email: String;
   password: String;
+  fullname: string;
   op: String;
   remember: Number;
 }

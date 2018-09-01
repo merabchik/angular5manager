@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -9,21 +9,55 @@ import { catchError } from 'rxjs/operators';
 export class Globals {
 
     public apiRoot = 'http://azomva.com/rest';
-    public token: String;
+    public token: string;
     public user_id: String;
     public UserJson: JSON;
+    public loading: any;
 
-    constructor(private router: Router, public http: Http, private activatedRoute: ActivatedRoute) { }
+    constructor(private router: Router, public http: Http, private activatedRoute: ActivatedRoute) {
+        this.token = localStorage.getItem('token');
+        this.user_id = localStorage.getItem('user_id');
+    }
 
     public SignOut() {
         localStorage.removeItem('token');
         localStorage.removeItem('user_id');
         this.router.navigate(['/login']);
     }
-    public post(p_resource, p_formData): any {
-        return this.http.post(this.apiRoot + p_resource, p_formData).subscribe(data => {
+    /*public post(p_resource, p_formData): any {
+        return this.http.post(this.apiRoot + p_resource, p_formData).
+        .subscribe(data => {
             return data.json();
         });
+}*/
+
+    public MyPost(p_resource, p_formData, p_withAuthHeder = false) {
+        try {
+            const hheader = new Headers();
+            hheader.append('Authorization', this.token);
+            if (p_withAuthHeder = true) {
+                return this.http
+                    .post(this.apiRoot + p_resource, p_formData, { headers: hheader });
+            } else {
+                return this.http
+                    .post(this.apiRoot + p_resource, p_formData);
+            }
+
+        } catch (error) {
+            this.handleError(error);
+        }
+    }
+
+    public MyGet(p_resource) {
+        console.log(p_resource);
+        try {
+            const roptions = new RequestOptions();
+            // roptions.headers.append('Authorization', this.token);
+            return this.http
+                .get(this.apiRoot + p_resource, roptions);
+        } catch (error) {
+            this.handleError(error);
+        }
     }
 
     private handleError(error) {

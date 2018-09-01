@@ -1,3 +1,51 @@
-<p>
-  contracts works!
-</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+  <h1 class="h2">შეთანხმებების სია</h1>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>ID#</th>
+        <th>შეთავაზებული ფასი</th>
+        <th>დამკვეთი</th>
+        <th>შემსრულებელი</th>
+        <th>შეთანხმების თარიღი</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of list">
+        <td>{{row.id}}</td>
+        <td>{{row.offered_price}}</td>
+        <td>
+          <span style="color: green">{{row.app_owner}}</span>
+        </td>
+        <td>
+          <span style="color: green">{{row.app_winer}}</span>
+        </td>
+        <td>{{row.create_date}}</td>
+        <td>
+          <a [routerLink]="['/contracts/details', row.id]">
+            <i class="fa fa-info-circle"></i> დეტალების ნახვა
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<router-outlet></router-outlet>
+<!--
+<div class="dropdown show">
+                      <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false">
+                          ქმედებები
+                      </a>
+
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" href="#">რედაქტირება</a>
+                          <a class="dropdown-item" href="#"></a>
+                          <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                  </div>
+
+-->

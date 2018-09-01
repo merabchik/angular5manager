@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="btn-group" role="group">
+            <button class="btn btn-normal" (click)="goBack()">
+                <i class="fa fa-angle-double-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;განცხადებების სიაში დაბრუნება</button>
+        </div>
+    </div>
+</div><br />
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-home"></i> შეთანხმების დეტალები
+            </div>
+            <div class="card-body">
+                <ul>
+                        <li>შეთანხმების #ID: <b>{{details.id}}</b></li>
+                        <li>განცხადების #ID: <b>{{details.app_id}}</b></li>
+                        <li>შეთავაზებული ფასი: <b>{{details.offered_price}}</b></li>
+                        <li>დაწყების დრო: <b>{{details.start_date}}</b></li>
+                        <li>შეთანხმების დრო: <b>{{details.create_date}}</b></li>
+                        <li>დამკვეთი: <b>{{details.app_owner}}</b></li>
+                        <li>შემსრულებელი: <b>{{details.app_winer}}</b></li>
+                        <li>შეთავაზების ტექსტი: <b>{{details.offer_description}}</b></li>
+                        <li>დადასტურების ტექსტი: <b>{{details.approved_text}}</b></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+</div>

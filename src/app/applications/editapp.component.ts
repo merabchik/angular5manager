@@ -39,9 +39,8 @@ export class EditAppComponent {
     global: any;
     loading: boolean;
     title = 'Azomvacomng';
-    App: AppModel;
+    App: any;
     vAppPropertyRequisites: AppPropertyRequisites;
-    vAppServiceTypes: AppServiceTypes;
     vBids: AppBids;
     saveMode: SaveMode = SaveMode.None;
 
@@ -67,14 +66,16 @@ export class EditAppComponent {
     getApp(id): void {
         this.id = id;
         this.loading = true;
-        this.http
-            .get(this.global.apiRoot + '/apps/details/?sesskey=' + this.global.sesskey + '&user_id=27&app_id=' + id)
+
+        this.global.MyGet('/apps/details/?sesskey=' + this.global.token + '&user_id=' + this.global.user_id + '&app_id=' + id)
             .subscribe(data => {
                 this.App = data.json().app_fields;
                 this.vBids = data.json().bids;
                 this.vAppPropertyRequisites = data.json().app_property_requisites;
-                this.vAppServiceTypes = data.json().app_service_types;
                 this.loading = false;
+                console.log(this.App);
+                console.log(this.vBids);
+                console.log(this.vAppPropertyRequisites);
             });
     }
 

@@ -19,6 +19,9 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { ContractDetailsComponent } from './contracts/details/contract.details.component';
+import { MapComponent } from './map/map.component';
+import { LoadingComponent } from './ui/loading/loading.component';
+import { NewinvoiceComponent } from './invoices/newinvoice/newinvoice.component';
 
 
 const appRoutes: Routes = [
@@ -114,7 +117,10 @@ const appRoutes: Routes = [
     PageNotFoundComponentComponent,
     ContractsComponent,
     ContractDetailsComponent,
-    LoginComponent
+    LoginComponent,
+    MapComponent,
+    LoadingComponent,
+    NewinvoiceComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +131,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes,
       {
-        useHash: true
+        useHash: true,
+        preloadingStrategy: PreloadAllModules
       })
   ],
   providers: [Globals, AuthGuardService],

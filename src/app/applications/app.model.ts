@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Globals } from '../globals';
 
 @Injectable()
 export class AppModel {
@@ -36,7 +37,7 @@ export class AppPropertyRequisites {
     public cadcode: String;
     public area: String;
     public lon_lat: String;
-    constructor() { }
+    constructor() {}
 }
 
 @Injectable()

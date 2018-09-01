@@ -13,6 +13,7 @@ export class InvoicesComponent implements OnInit {
     global: any;
     loading: boolean;
     invoicesList: InvoicesModel;
+    submitted: boolean;
     constructor(public http: Http, router: Router, global: Globals) {
         this.global = global;
         // router.navigate(['apps']);
@@ -32,4 +33,9 @@ export class InvoicesComponent implements OnInit {
     ngOnInit(): void {
         this.getInvoicesList();
     }
+
+    newForm(): void {
+
+    }
+
 }
